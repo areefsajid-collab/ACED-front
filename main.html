@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACED</title>
+    
+    <link rel="stylesheet" href="main.css">
+    
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar-overlay" data-close-sidebar hidden></div>
+    <aside class="sidebar" id="site-sidebar" aria-hidden="true">
+        <p class="sidebar-title">Menu</p>
+        <nav class="sidebar-nav" aria-label="Site">
+            <button class="sidebar-link is-active" type="button" data-view="home">Home</button>
+            <button class="sidebar-link" type="button" data-view="about">About</button>
+            <button class="sidebar-link" type="button" data-view="contacts">Contacts</button>
+        </nav>
+    </aside>
+
+    <div class = "bodytotal">
+    <div class = "header">
+        <div class = "hamburgermenu">
+            <button class="hamburger-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-sidebar">
+                <img src="icons8-hamburger-button-50.png" class = "hamburger" alt="">
+            </button>
+        </div>
+        <div class = "logo">
+             <p class = "logotext">
+                ACED*
+             </p>
+             
+
+        </div>
+        <div class = "socials">
+             <a class="social-btn" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                <img src="icons8-linkedin-50.png" class = "linkedin" alt="LinkedIn">
+             </a>
+             <a class="social-btn" href="https://github.com/areefsajid-collab" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                <img src="icons8-github-50.png" class = "github" alt="GitHub">
+             </a>
+
+        </div>
+
+
+    </div>
+
+    <section class="page-view is-active" data-view="home">
+        <div class = "maingoaltext">
+            <p class = "purpose">
+                The purpose of this website is to enable kids in pakistan to access excellent worksheets.
+            </p>
+            <p>
+                These worksheets have been designed based on the curriculum of the Oxford University Press and Cambridge University Press.
+            </p>
+            <p>
+                Learn!
+            </p>
+        </div>
+
+        <div class="subjects-tab" role="tablist" aria-label="Subjects">
+            <button class="subject-btn" type="button" data-subject="maths" role="tab">Maths</button>
+            <button class="subject-btn" type="button" data-subject="english" role="tab">English</button>
+            <button class="subject-btn" type="button" data-subject="science" role="tab">Science</button>
+            <button class="subject-btn" type="button" data-subject="urdu" role="tab">Urdu</button>
+        </div>
+        <p class="subject-note" aria-live="polite"></p>
+    </section>
+
+    <section class="page-view" data-view="about" hidden>
+        <div class="maingoaltext">
+            <p>About</p>
+            <p>
+                My name is Areef Sajid. I am a student of Computer Science at IBA. I have always been passionate about teaching. I believe that education should be accessible, you shouldnt have to pay a hefty amount just to access a basic human right.
+            </p>
+            <p>
+                Which is why i created this website. I want to make sure that every child who has access to the internet can use good resources to educate themseleves. Whether they go to school or not.
+                
+            </p>
+        </div>
+
+    </section>
+
+    <section class="page-view" data-view="contacts" hidden>
+        <div class="maingoaltext">
+            <p>Contacts</p>
+            <p>
+                Reach Areef on
+                <a class="inline-link" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+            </p>
+            <p>
+                You can also contact me on my email address : areefsajid485@gmail.com
+            </p>
+        </div>
+    </section>
+</div>
+
+
+</body>
+</html>
