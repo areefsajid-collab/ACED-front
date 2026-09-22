@@ -7,6 +7,57 @@ const overlay = document.querySelector(".sidebar-overlay");
 const sidebarLinks = document.querySelectorAll(".sidebar-link");
 const pageViews = document.querySelectorAll(".page-view");
 
+const subjectLabels = {
+    maths: "Maths",
+    english: "English",
+    science: "Science",
+    urdu: "Urdu"
+};
+
+const subjectColors = {
+    maths: "#3B82F6",
+    english: "#FF6B6B",
+    science: "#10B981",
+    urdu: "#8B5CF6"
+};
+
+function navigateTo(viewName, pushToHistory = true) {
+    pageViews.forEach((view) => {
+        const isActive = view.dataset.view === viewName;
+        view.classList.toggle("is-active", isActive);
+        view.hidden = !isActive;
+    });
+
+    sidebarLinks.forEach((link) => {
+        link.classList.toggle("is-active", link.dataset.view === viewName);
+    });
+
+    subjectButtons.forEach((btn) => {
+        btn.classList.toggle("is-selected", btn.dataset.subject === viewName);
+    });
+
+    if (pushToHistory) {
+        history.pushState({ view: viewName }, "", `#${viewName}`);
+    }
+
+    setSidebarOpen(false);
+}
+
+window.addEventListener("popstate", (event) => {
+    if (event.state && event.state.view) {
+        navigateTo(event.state.view, false);
+    } else {
+        const viewFromHash = location.hash.replace("#", "") || "home";
+        navigateTo(viewFromHash, false);
+    }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const initialView = location.hash.replace("#", "") || "home";
+    navigateTo(initialView, false);
+    history.replaceState({ view: initialView }, "", `#${initialView}`);
+});
+
 function setSidebarOpen(open) {
     sidebar.classList.toggle("is-open", open);
     sidebar.setAttribute("aria-hidden", String(!open));
@@ -30,25 +81,9 @@ document.addEventListener("keydown", (event) => {
 sidebarLinks.forEach((link) => {
     link.addEventListener("click", () => {
         const viewName = link.dataset.view;
-
-        sidebarLinks.forEach((other) => other.classList.toggle("is-active", other === link));
-        pageViews.forEach((view) => {
-            const isActive = view.dataset.view === viewName;
-            view.classList.toggle("is-active", isActive);
-            view.hidden = !isActive;
-        });
-
-        setSidebarOpen(false);
+        navigateTo(viewName);
     });
 });
-
-
-const subjectLabels = {
-    maths: "Maths",
-    english: "English",
-    science: "Science",
-    urdu: "Urdu"
-};
 
 subjectButtons.forEach((button, index) => {
     window.setTimeout(() => {
@@ -56,29 +91,53 @@ subjectButtons.forEach((button, index) => {
     }, 280 + index * 90);
 
     button.addEventListener("click", (event) => {
-        subjectButtons.forEach((other) => other.classList.remove("is-selected"));
-        button.classList.add("is-selected");
         addRipple(button, event);
-
         const subject = button.dataset.subject;
-        subjectNote.textContent = `${subjectLabels[subject]} worksheets are coming next.`;
+        const emoji = { maths: "📊", english: "📚", science: "🔬", urdu: "🌍" };
+        subjectNote.textContent = `${emoji[subject]} ${subjectLabels[subject]} worksheets await you!`;
         subjectNote.classList.remove("is-shown");
         void subjectNote.offsetWidth;
         subjectNote.classList.add("is-shown");
+
+        window.setTimeout(() => {
+            navigateTo(subject);
+        }, 600);
     });
 });
 
-socialButtons.forEach((link) => {
-    link.addEventListener("pointerdown", () => {
-        link.classList.add("is-pressed");
-    });
+document.querySelectorAll(".grade-square").forEach((button) => {
+    button.addEventListener("click", () => {
+        const gradeNumber = button.dataset.grade;
+        if (!gradeNumber) return;
 
-    link.addEventListener("pointerup", () => {
-        link.classList.remove("is-pressed");
-    });
+        const activeView = document.querySelector(".page-view.is-active");
+        const activeSubject = activeView ? activeView.dataset.view : "Subject";
+        const formattedSubject = activeSubject.toUpperCase();
 
-    link.addEventListener("pointerleave", () => {
-        link.classList.remove("is-pressed");
+        document.getElementById("grade-view-title").textContent = `${formattedSubject} - Grade ${gradeNumber}`;
+        document.getElementById("grade-view-description").textContent = "Explore topics and worksheets for this grade.";
+
+        const topicsContainer = document.getElementById("grade-view-topics");
+        topicsContainer.innerHTML = "";
+
+        const topicCard = document.createElement("button");
+        topicCard.className = "grade-square";
+        topicCard.type = "button";
+        topicCard.innerHTML = `
+            <span class="grade-square-title">Topics Coming Soon</span>
+            <span class="grade-square-divider"></span>
+            <span class="grade-square-link">View Worksheets →</span>
+        `;
+
+        topicCard.addEventListener("click", () => {
+            document.getElementById("worksheet-view-title").textContent = "Worksheets";
+            document.getElementById("worksheet-view-description").textContent = `Grade ${gradeNumber} ${formattedSubject}`;
+            document.getElementById("worksheet-view-message").textContent = "Worksheets will be uploaded here soon! Check back soon.";
+            navigateTo("worksheet-view");
+        });
+
+        topicsContainer.appendChild(topicCard);
+        navigateTo("grade-view");
     });
 });
 
