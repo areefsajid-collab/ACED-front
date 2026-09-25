@@ -60,7 +60,8 @@ body {
 
 .hamburgermenu,
 .logo,
-.socials {
+.socials,
+.header-right {
     display: flex;
     align-items: center;
 }
@@ -70,6 +71,13 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.logo .logotext,
+.logo .logosubtitle {
+    pointer-events: auto;
 }
 
 .logotext {
@@ -91,6 +99,12 @@ body {
     margin: 0;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+/* Right-hand side of header (Sign In + socials) */
+.header-right {
+    gap: 0.75rem;
+    margin-left: auto;
 }
 
 /* Social & Navigation Buttons */
@@ -154,6 +168,44 @@ body {
     width: 1.25rem;
     height: auto;
     display: block;
+}
+
+/* Sign In Button */
+.signin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.5rem;
+    padding: 0 1.125rem;
+    border: none;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, var(--maths-color), var(--english-color));
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.signin-btn:hover,
+.signin-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    outline: none;
+}
+
+.signin-btn:active {
+    transform: scale(0.96) translateY(0);
+}
+
+.signin-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
 }
 
 /* Sidebar Navigation */
@@ -616,6 +668,16 @@ code {
     .hamburger-btn {
         width: 2.25rem;
         height: 2.25rem;
+    }
+
+    .signin-btn {
+        height: 2.25rem;
+        padding: 0 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .signin-btn span {
+        display: none; /* Icon-only on mobile */
     }
 
     .sidebar {
