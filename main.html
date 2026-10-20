@@ -3,361 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACED* — Worksheets for Kids</title>
-
+    <title>ACED* by Areef: Worksheets for Kids</title>
     <link rel="stylesheet" href="main.css">
-    <script src="main.js" defer></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="sidebar-overlay" data-close-sidebar hidden></div>
-    <aside class="sidebar" id="site-sidebar" aria-hidden="true">
-        <p class="sidebar-title">Menu</p>
+
+    <header class="topbar">
+        <div class="wrap topbar-inner">
+            <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true">
+                    <line x1="4" y1="7" x2="20" y2="7"/>
+                    <line x1="4" y1="12" x2="20" y2="12"/>
+                    <line x1="4" y1="17" x2="20" y2="17"/>
+                </svg>
+            </button>
+
+            <a class="brand" href="#home" data-link="home" aria-label="ACED by Areef, home">
+                <svg class="brand-star" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+                    <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#FFC233" stroke="#1B1B3A" stroke-width="3" stroke-linejoin="round"/>
+                </svg>
+                <span class="brand-text">
+                    <span class="brand-name">ACED*</span>
+                    <span class="brand-sub">by Areef</span>
+                </span>
+            </a>
+
+            <nav class="socials" aria-label="Social links">
+                <a class="social-btn" href="https://github.com/areefsajid-collab" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                    </svg>
+                </a>
+                <a class="social-btn" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="overlay" data-close-menu hidden></div>
+
+    <aside class="sidebar" id="sidebar" aria-hidden="true">
+        <p class="sidebar-title">Explore</p>
         <nav class="sidebar-nav" aria-label="Site">
-            <button class="sidebar-link is-active" type="button" data-view="home">Home</button>
-            <button class="sidebar-link" type="button" data-view="about">About</button>
-            <button class="sidebar-link" type="button" data-view="contacts">Contacts</button>
+            <a class="sidebar-link" href="#home" data-link="home">Home</a>
+            <a class="sidebar-link" href="#about" data-link="about">About</a>
+            <a class="sidebar-link" href="#contacts" data-link="contacts">Contacts</a>
         </nav>
     </aside>
 
-    <div class="bodytotal">
-        <div class="header">
-            <div class="hamburgermenu">
-                <button class="hamburger-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-sidebar">
-                    <svg class="hamburger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
+    <main class="wrap stage">
 
-            <div class="logo">
-                <p class="logotext">ACED*</p>
-                <p class="logosubtitle">by Areef</p>
-            </div>
-
-            <div class="header-right">
-                <button class="signin-btn" type="button" aria-label="Sign in to your account">
-                    <svg class="signin-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                        <polyline points="10 17 15 12 10 7"></polyline>
-                        <line x1="15" y1="12" x2="3" y2="12"></line>
+        <!-- HOME -->
+        <section class="view" data-view="home">
+            <div class="hero">
+                <div class="hero-text">
+                    <p class="kicker">Free printable worksheets</p>
+                    <h1 class="hero-title">Learn something new today</h1>
+                    <p class="hero-copy">Worksheets for Grades 1 to 8, matched to the national, Oxford and Cambridge curricula.</p>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <svg viewBox="0 0 260 260" width="100%" height="100%">
+                        <circle cx="130" cy="130" r="118" fill="#FFC233" stroke="#1B1B3A" stroke-width="4"/>
+                        <!-- fox body -->
+                        <path d="M70 170 Q130 120 190 170 L180 200 Q130 218 80 200 Z" fill="#FF5A36" stroke="#1B1B3A" stroke-width="4" stroke-linejoin="round"/>
+                        <!-- ears -->
+                        <path d="M84 110 L92 60 L120 96 Z" fill="#FF5A36" stroke="#1B1B3A" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M176 110 L168 60 L140 96 Z" fill="#FF5A36" stroke="#1B1B3A" stroke-width="4" stroke-linejoin="round"/>
+                        <!-- head -->
+                        <ellipse cx="130" cy="130" rx="60" ry="50" fill="#FF5A36" stroke="#1B1B3A" stroke-width="4"/>
+                        <!-- cheeks -->
+                        <path d="M86 140 Q130 176 174 140 L168 160 Q130 186 92 160 Z" fill="#FDF6E3" stroke="#1B1B3A" stroke-width="3" stroke-linejoin="round"/>
+                        <!-- eyes -->
+                        <circle cx="110" cy="122" r="6" fill="#1B1B3A"/>
+                        <circle cx="150" cy="122" r="6" fill="#1B1B3A"/>
+                        <!-- nose -->
+                        <circle cx="130" cy="146" r="5" fill="#1B1B3A"/>
+                        <!-- book it is holding -->
+                        <rect x="92" y="188" width="76" height="34" rx="4" fill="#2EA8E6" stroke="#1B1B3A" stroke-width="4"/>
+                        <line x1="130" y1="190" x2="130" y2="220" stroke="#1B1B3A" stroke-width="3"/>
                     </svg>
-                    <span>Sign In</span>
-                </button>
-                <div class="socials">
-                    <a class="social-btn" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a class="social-btn" href="https://github.com/areefsajid-collab" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
                 </div>
             </div>
+
+            <h2 class="section-title">Pick a subject</h2>
+            <div class="subject-grid">
+                <button class="subject-card s-maths" type="button" data-subject="maths">
+                    <span class="subject-mark">+</span>
+                    <span class="subject-name">Maths</span>
+                </button>
+                <button class="subject-card s-english" type="button" data-subject="english">
+                    <span class="subject-mark">Aa</span>
+                    <span class="subject-name">English</span>
+                </button>
+                <button class="subject-card s-science" type="button" data-subject="science">
+                    <span class="subject-mark">◎</span>
+                    <span class="subject-name">Science</span>
+                </button>
+                <button class="subject-card s-urdu" type="button" data-subject="urdu">
+                    <span class="subject-mark">ا</span>
+                    <span class="subject-name">Urdu</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="view" data-view="about" hidden>
+            <div class="panel">
+                <h2 class="panel-title">About ACED*</h2>
+                <p>I'm Areef, a Computer Science student at IBA Karachi. I made ACED* because good learning materials should not depend on which school you attend.</p>
+                <p>Every worksheet is free, printable, and written to match the national, Oxford and Cambridge curricula.</p>
+            </div>
+        </section>
+
+        <!-- CONTACTS -->
+        <section class="view" data-view="contacts" hidden>
+            <div class="panel">
+                <h2 class="panel-title">Get in touch</h2>
+                <p>Found a mistake, have an idea, or want to help? Send a message.</p>
+                <p><a class="text-link" href="mailto:areefsajid485@gmail.com">areefsajid485@gmail.com</a></p>
+            </div>
+        </section>
+
+        <!-- SUBJECT: grade picker -->
+        <section class="view" data-view="subject" hidden>
+            <div class="view-head">
+                <button class="back-btn" type="button" data-link="home">← Subjects</button>
+                <h2 class="view-title" id="subject-title">Maths</h2>
+                <p class="view-copy">Choose a grade to see its topics.</p>
+            </div>
+            <div class="grade-grid" id="grade-grid"></div>
+        </section>
+
+        <!-- GRADE: topics -->
+        <section class="view" data-view="grade" hidden>
+            <div class="view-head">
+                <button class="back-btn" type="button" id="grade-back">← Grades</button>
+                <h2 class="view-title" id="grade-title">Grade</h2>
+                <p class="view-copy">Topics for this grade.</p>
+            </div>
+            <div class="topic-list" id="topic-list"></div>
+        </section>
+
+        <!-- WORKSHEET: printable page -->
+        <section class="view" data-view="worksheet" hidden>
+            <div class="view-head no-print">
+                <button class="back-btn" type="button" id="worksheet-back">← Topics</button>
+                <button class="print-btn" type="button" id="print-btn">Print this worksheet</button>
+            </div>
+            <article class="sheet" aria-labelledby="sheet-title">
+                <header class="sheet-head">
+                    <div class="sheet-brand">ACED* <span>by Areef</span></div>
+                    <h2 class="sheet-title" id="sheet-title">Worksheet</h2>
+                    <div class="sheet-fields">
+                        <label>Name <span class="field-line"></span></label>
+                        <label>Date <span class="field-line short"></span></label>
+                    </div>
+                </header>
+                <div class="sheet-body" id="sheet-body">
+                    <p class="sheet-empty">Worksheets will be uploaded here soon.</p>
+                </div>
+            </article>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <a class="brand brand-footer" href="#home" data-link="home" aria-label="ACED by Areef, home">
+                <svg class="brand-star" viewBox="0 0 40 40" width="24" height="24" aria-hidden="true">
+                    <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#FFC233" stroke="#1B1B3A" stroke-width="3" stroke-linejoin="round"/>
+                </svg>
+                <span class="brand-text">
+                    <span class="brand-name">ACED*</span>
+                    <span class="brand-sub">by Areef</span>
+                </span>
+            </a>
+            <p class="footer-note">© 2026 ACED* by Areef. Free printable worksheets for Grades 1 to 8.</p>
         </div>
+    </footer>
 
-        <section class="page-view is-active" data-view="home">
-            <div class="maingoaltext">
-                <h2 class="purpose-heading">Welcome to ACED*</h2>
-                <p class="purpose">
-                    Access excellent worksheets designed for kids across <strong>Grades 1–8</strong> in Pakistan.
-                </p>
-                <p>
-                    All worksheets follow the <strong>Oxford University Press</strong> and <strong>Cambridge University Press</strong> curricula.
-                </p>
-                <p class="cta-text">Pick a subject and start learning! 🚀</p>
-            </div>
-
-            <div class="subjects-tab" role="tablist" aria-label="Subjects">
-                <button class="subject-btn" type="button" data-subject="maths" role="tab" style="--subject-color: #3B82F6">Maths</button>
-                <button class="subject-btn" type="button" data-subject="english" role="tab" style="--subject-color: #FF6B6B">English</button>
-                <button class="subject-btn" type="button" data-subject="science" role="tab" style="--subject-color: #10B981">Science</button>
-                <button class="subject-btn" type="button" data-subject="urdu" role="tab" style="--subject-color: #8B5CF6">Urdu</button>
-            </div>
-            <p class="subject-note" aria-live="polite"></p>
-        </section>
-
-        <section class="page-view" data-view="about" hidden>
-            <div class="maingoaltext">
-                <h2>About ACED*</h2>
-                <p>
-                    Hi! I'm <strong>Areef Sajid</strong>, a Computer Science student at IBA. I created ACED* because I believe education is a basic right, not a luxury.
-                </p>
-                <p>
-                    Too many brilliant kids in Pakistan can't access quality learning resources. That stops here. Whether you go to school or not, you deserve good materials.
-                </p>
-                <p>
-                    <strong>ACED* is free forever.</strong>
-                </p>
-            </div>
-        </section>
-
-        <section class="page-view" data-view="contacts" hidden>
-            <div class="maingoaltext">
-                <h2>Get in Touch</h2>
-                <p>
-                    Have feedback? Found a bug? Want to collaborate?
-                </p>
-                <p>
-                    Reach me on <a class="inline-link" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer">LinkedIn</a> or email <code>areefsajid485@gmail.com</code>.
-                </p>
-            </div>
-        </section>
-
-        <!-- Subject Sections -->
-        <section class="page-view subject-section" data-view="maths" hidden style="--subject-hue: 217; --subject-sat: 91%; --subject-light: 60%;">
-            <div class="subject-header">
-                <h1 class="subject-title">📊 Maths</h1>
-                <p class="subject-description">Master numbers, shapes, and problem-solving</p>
-            </div>
-            <div class="grade-square-grid">
-                <button class="grade-square" type="button" data-grade="1">
-                    <span class="grade-square-badge">1</span>
-                    <span class="grade-square-title">Grade 1</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="2">
-                    <span class="grade-square-badge">2</span>
-                    <span class="grade-square-title">Grade 2</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="3">
-                    <span class="grade-square-badge">3</span>
-                    <span class="grade-square-title">Grade 3</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="4">
-                    <span class="grade-square-badge">4</span>
-                    <span class="grade-square-title">Grade 4</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="5">
-                    <span class="grade-square-badge">5</span>
-                    <span class="grade-square-title">Grade 5</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="6">
-                    <span class="grade-square-badge">6</span>
-                    <span class="grade-square-title">Grade 6</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="7">
-                    <span class="grade-square-badge">7</span>
-                    <span class="grade-square-title">Grade 7</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="8">
-                    <span class="grade-square-badge">8</span>
-                    <span class="grade-square-title">Grade 8</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="page-view subject-section" data-view="english" hidden style="--subject-hue: 0; --subject-sat: 100%; --subject-light: 60%;">
-            <div class="subject-header">
-                <h1 class="subject-title">📚 English</h1>
-                <p class="subject-description">Read, write, and speak with confidence</p>
-            </div>
-            <div class="grade-square-grid">
-                <button class="grade-square" type="button" data-grade="1">
-                    <span class="grade-square-badge">1</span>
-                    <span class="grade-square-title">Grade 1</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="2">
-                    <span class="grade-square-badge">2</span>
-                    <span class="grade-square-title">Grade 2</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="3">
-                    <span class="grade-square-badge">3</span>
-                    <span class="grade-square-title">Grade 3</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="4">
-                    <span class="grade-square-badge">4</span>
-                    <span class="grade-square-title">Grade 4</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="5">
-                    <span class="grade-square-badge">5</span>
-                    <span class="grade-square-title">Grade 5</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="6">
-                    <span class="grade-square-badge">6</span>
-                    <span class="grade-square-title">Grade 6</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="7">
-                    <span class="grade-square-badge">7</span>
-                    <span class="grade-square-title">Grade 7</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="8">
-                    <span class="grade-square-badge">8</span>
-                    <span class="grade-square-title">Grade 8</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="page-view subject-section" data-view="science" hidden style="--subject-hue: 160; --subject-sat: 84%; --subject-light: 51%;">
-            <div class="subject-header">
-                <h1 class="subject-title">🔬 Science</h1>
-                <p class="subject-description">Explore the world through discovery and experiments</p>
-            </div>
-            <div class="grade-square-grid">
-                <button class="grade-square" type="button" data-grade="1">
-                    <span class="grade-square-badge">1</span>
-                    <span class="grade-square-title">Grade 1</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="2">
-                    <span class="grade-square-badge">2</span>
-                    <span class="grade-square-title">Grade 2</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="3">
-                    <span class="grade-square-badge">3</span>
-                    <span class="grade-square-title">Grade 3</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="4">
-                    <span class="grade-square-badge">4</span>
-                    <span class="grade-square-title">Grade 4</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="5">
-                    <span class="grade-square-badge">5</span>
-                    <span class="grade-square-title">Grade 5</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="6">
-                    <span class="grade-square-badge">6</span>
-                    <span class="grade-square-title">Grade 6</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="7">
-                    <span class="grade-square-badge">7</span>
-                    <span class="grade-square-title">Grade 7</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="8">
-                    <span class="grade-square-badge">8</span>
-                    <span class="grade-square-title">Grade 8</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="page-view subject-section" data-view="urdu" hidden style="--subject-hue: 270; --subject-sat: 73%; --subject-light: 55%;">
-            <div class="subject-header">
-                <h1 class="subject-title">🌍 Urdu</h1>
-                <p class="subject-description">Learn and master the beauty of Urdu language</p>
-            </div>
-            <div class="grade-square-grid">
-                <button class="grade-square" type="button" data-grade="1">
-                    <span class="grade-square-badge">1</span>
-                    <span class="grade-square-title">Grade 1</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="2">
-                    <span class="grade-square-badge">2</span>
-                    <span class="grade-square-title">Grade 2</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="3">
-                    <span class="grade-square-badge">3</span>
-                    <span class="grade-square-title">Grade 3</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="4">
-                    <span class="grade-square-badge">4</span>
-                    <span class="grade-square-title">Grade 4</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="5">
-                    <span class="grade-square-badge">5</span>
-                    <span class="grade-square-title">Grade 5</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="6">
-                    <span class="grade-square-badge">6</span>
-                    <span class="grade-square-title">Grade 6</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="7">
-                    <span class="grade-square-badge">7</span>
-                    <span class="grade-square-title">Grade 7</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-                <button class="grade-square" type="button" data-grade="8">
-                    <span class="grade-square-badge">8</span>
-                    <span class="grade-square-title">Grade 8</span>
-                    <span class="grade-square-divider"></span>
-                    <span class="grade-square-link">View Topics →</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="page-view subject-section" data-view="grade-view" hidden>
-            <div class="subject-header">
-                <h1 class="subject-title" id="grade-view-title"></h1>
-                <p class="subject-description" id="grade-view-description">Pick a topic to see its worksheets.</p>
-            </div>
-            <div class="grade-square-grid" id="grade-view-topics"></div>
-        </section>
-
-        <section class="page-view subject-section" data-view="worksheet-view" hidden>
-            <div class="subject-header">
-                <h1 class="subject-title" id="worksheet-view-title"></h1>
-                <p class="subject-description" id="worksheet-view-description"></p>
-            </div>
-            <div class="worksheet-placeholder">
-                <p id="worksheet-view-message"></p>
-            </div>
-        </section>
-    </div>
+    <script src="main.js"></script>
 </body>
 </html>
