@@ -95,9 +95,50 @@ a { color: inherit; }
     transition: transform 0.12s ease, background 0.12s ease;
 }
 .menu-btn { justify-self: start; }
-.socials { display: flex; gap: 12px; justify-self: end; }
+.socials { display: flex; align-items: center; gap: 12px; justify-self: end; }
 .menu-btn:hover, .social-btn:hover { background: var(--sunflower); }
 .menu-btn:active, .social-btn:active { transform: scale(0.96); }
+
+/* Header login / profile chip */
+.auth-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: var(--tap);
+    padding: 0 18px;
+    border: var(--line) solid var(--ink);
+    border-radius: 14px;
+    background: var(--sunflower);
+    color: var(--ink);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+}
+.auth-chip:hover { background: var(--white); }
+.auth-chip:active { transform: scale(0.96); }
+.auth-chip.is-user { background: var(--white); padding-left: 8px; }
+
+/* Round avatar with the first letter of the name */
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    background: var(--tomato);
+    color: var(--white);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 1;
+    flex: 0 0 auto;
+}
+.avatar-lg { width: 72px; height: 72px; font-size: 34px; }
 
 /* ---------- Sidebar ---------- */
 .overlay {
@@ -316,6 +357,101 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
 .panel p { margin: 0 0 14px; font-size: 19px; }
 .text-link { color: var(--tomato); font-weight: 800; }
 
+/* ---------- Login ---------- */
+.auth-panel { max-width: 520px; }
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0 22px;
+    border: var(--line) solid var(--ink);
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+}
+.google-btn:hover { background: var(--paper); }
+.google-btn:active { transform: scale(0.97); }
+.google-logo { flex: 0 0 auto; }
+
+.auth-or {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    color: var(--ink-soft);
+    font-weight: 700;
+    font-size: 16px;
+}
+.auth-or::before,
+.auth-or::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: var(--ink-soft);
+    opacity: 0.4;
+}
+
+.auth-form { display: grid; gap: 16px; margin: 0; }
+.auth-form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 17px;
+}
+.auth-form input {
+    min-height: var(--tap);
+    padding: 0 16px;
+    font: inherit;
+    font-size: 18px;
+    color: var(--ink);
+    background: var(--white);
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+}
+.auth-form input:focus-visible { outline: 4px solid var(--sky); outline-offset: 2px; }
+.auth-submit {
+    min-height: var(--tap);
+    padding: 0 22px;
+    border: var(--line) solid var(--ink);
+    border-radius: 14px;
+    background: var(--tomato);
+    color: var(--white);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+}
+.auth-submit:active { transform: scale(0.97); }
+.auth-msg { min-height: 24px; margin: 0; font-weight: 700; color: var(--tomato); }
+.auth-switch { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0 0; }
+.text-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ---------- Profile ---------- */
+.profile-panel { max-width: 560px; }
+.profile-head { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.profile-head .panel-title { margin: 0 0 4px; }
+.profile-head .view-copy { font-size: 17px; }
+.profile-logout { margin-top: 12px; }
+
 /* ---------- Printable worksheet ---------- */
 .sheet {
     max-width: 210mm;
@@ -390,7 +526,18 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
         height: 48px;
         border-width: 3px;
     }
-    .socials { gap: 8px; }
+    .socials { gap: 6px; }
+
+    /* On phones the chip shows only the avatar, or the text "Log in" in a smaller size */
+    .auth-chip {
+        min-height: 48px;
+        padding: 0 10px;
+        font-size: 15px;
+        border-width: 3px;
+    }
+    .auth-chip.is-user .auth-name { display: none; }
+    .auth-chip.is-user { padding: 4px; }
+    .avatar { width: 36px; height: 36px; font-size: 18px; border-width: 3px; }
 
     .hero {
         grid-template-columns: 1fr;
@@ -444,4 +591,143 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     .stage { padding: 0; }
     .view[data-view="worksheet"] { display: block !important; }
     .sheet { border: 0; border-radius: 0; margin: 0; max-width: none; min-height: auto; }
+}
+
+/* ---------- Worksheet list (grade page) ---------- */
+.topic-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 72px;
+    padding: 0 22px;
+    border: var(--line) solid var(--ink);
+    border-radius: 18px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+}
+.topic-btn:hover { background: var(--sunflower); }
+.topic-btn:active { transform: scale(0.98); }
+.topic-text { flex: 1; min-width: 0; }
+.topic-meta { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+
+.badge {
+    padding: 4px 12px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+.done-tag {
+    padding: 4px 12px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--leaf);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+/* ---------- Worksheet page actions ---------- */
+.action-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.done-btn,
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 22px;
+    border: var(--line) solid var(--ink);
+    border-radius: 14px;
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+}
+.done-btn { background: var(--leaf); color: var(--white); }
+.download-btn { background: var(--white); color: var(--ink); }
+.done-btn:active, .download-btn:active { transform: scale(0.96); }
+
+/* ---------- Worksheet content (matches the printed sheet) ---------- */
+.sheet-meta { margin: 0 0 4px; font-weight: 700; color: var(--ink-soft); }
+.sheet-section {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 36px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 3px solid var(--ink);
+}
+.picture-note { margin: 0 0 8px; font-style: italic; color: var(--ink-soft); }
+.answer-lines { margin-top: 10px; }
+.answer-line {
+    height: 34px;
+    border-bottom: 2px solid var(--ink-soft);
+}
+.matching { margin-top: 8px; }
+.matching-note { font-style: italic; color: var(--ink-soft); margin: 0 0 10px; }
+.match-row { display: flex; gap: 10px; margin: 0 0 10px; }
+.match-blank { color: var(--ink-soft); }
+.matching-title { font-weight: 800; margin: 14px 0 6px; }
+.match-option { margin: 0 0 6px; }
+
+/* ---------- My progress ---------- */
+.grade-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 8px; }
+.grade-tab {
+    min-height: 48px;
+    padding: 0 18px;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    cursor: pointer;
+}
+.grade-tab.is-active { background: var(--sky); color: var(--white); }
+.progress-heading {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    margin: 24px 0 4px;
+}
+.progress-card {
+    max-width: 680px;
+    margin: 16px 0;
+    padding: 20px 24px;
+    border: var(--line) solid var(--ink);
+    border-radius: 18px;
+    background: var(--white);
+}
+.progress-subject {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+.progress-track {
+    height: 24px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    overflow: hidden;
+}
+.progress-fill { height: 100%; background: var(--leaf); }
+.progress-count { margin: 8px 0 0; font-weight: 700; }
+
+@media (max-width: 600px) {
+    .topic-btn { min-height: 64px; font-size: 18px; padding: 0 16px; }
+    .done-btn, .download-btn { min-height: 48px; font-size: 16px; }
+    .progress-heading { font-size: 30px; }
 }
