@@ -1,4 +1,6 @@
-const API = "http://localhost:5000/api";
+const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "http://localhost:5000/api"
+    : "https://aced-backend.onrender.com/api";
 
 const views = document.querySelectorAll(".view");
 const sidebar = document.querySelector(".sidebar");
@@ -14,8 +16,6 @@ const subjects = {
 };
 
 const GRADES = [1, 2, 3, 4, 5, 6, 7, 8];
-const TYPE_LABEL = { short: "Short answer", long: "Long answer", matching: "Matching", diagram: "Diagram questions" };
-const LINES = { short: 3, long: 8, diagram: 4 };
 
 // Hash routes:
 // #home, #about, #contacts, #login, #profile, #progress
@@ -120,7 +120,6 @@ function el(tag, className, text) {
     return node;
 }
 
-// Loads the IDs of worksheets this user has marked done
 async function loadDoneIds() {
     state.doneIds = new Set();
     if (!session.token) return;
@@ -249,65 +248,6 @@ async function renderGrade(subject, grade) {
 }
 
 // ---------- Worksheet page ----------
-function shuffledIndexes(length) {
-    const order = Array.from({ length }, (_, i) => i);
-    for (let i = order.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [order[i], order[j]] = [order[j], order[i]];
-    }
-    return order;
-}
-
-function answerLines(count) {
-    const wrap = el("div", "answer-lines");
-    for (let i = 0; i < count; i++) wrap.appendChild(el("div", "answer-line"));
-    return wrap;
-}
-
-function matchingBlock(q) {
-    const wrap = el("div", "matching");
-    wrap.appendChild(el("p", "matching-note", "Write the letter of the matching answer on each line."));
-    q.left.forEach((item, i) => {
-        const row = el("p", "match-row", `${i + 1}. ${item}`);
-        row.appendChild(el("span", "match-blank", "__________"));
-        wrap.appendChild(row);
-    });
-    wrap.appendChild(el("p", "matching-title", "Options"));
-    const letters = "ABCDEFGHI";
-    shuffledIndexes(q.right.length).forEach((ri, k) => {
-        wrap.appendChild(el("p", "match-option", `${letters[k]}. ${q.right[ri]}`));
-    });
-    return wrap;
-}
-
-function renderQuestions(questions, body) {
-    const groups = { short: [], long: [], matching: [], diagram: [] };
-    questions.forEach((q) => groups[q.section === "free" ? q.format : q.section].push(q));
-
-    let n = 0;
-    Object.keys(groups).forEach((type) => {
-        if (!groups[type].length) return;
-        body.appendChild(el("h3", "sheet-section", TYPE_LABEL[type]));
-
-        groups[type].forEach((q) => {
-            n++;
-            const block = el("div", "question");
-
-            if (type === "diagram" && q.diagramDescription) {
-                const pic = el("p", "picture-note");
-                pic.appendChild(el("strong", null, "Picture: "));
-                pic.appendChild(document.createTextNode(q.diagramDescription));
-                block.appendChild(pic);
-            }
-
-            block.appendChild(el("p", "question-text", `${n}. ${q.question}`));
-            if (type === "matching") block.appendChild(matchingBlock(q));
-            if (LINES[type]) block.appendChild(answerLines(LINES[type]));
-            body.appendChild(block);
-        });
-    });
-}
-
 function updateDoneButton() {
     const btn = document.getElementById("done-btn");
     btn.hidden = false;
@@ -352,6 +292,7 @@ async function renderWorksheet(id) {
     try {
         await loadDoneIds();
         const { worksheet } = await apiFetch(`/worksheets/${id}`);
+        const preview = await apiFetch(`/worksheets/${id}/preview`);
 
         state.subject = worksheet.subject;
         state.grade = worksheet.grade;
@@ -363,8 +304,7 @@ async function renderWorksheet(id) {
         download.href = `${API}/worksheets/${id}/download`;
         download.hidden = false;
 
-        body.innerHTML = "";
-        renderQuestions(worksheet.content.questions, body);
+        body.innerHTML = preview.html;
         updateDoneButton();
     } catch (err) {
         body.innerHTML = "";
@@ -536,7 +476,6 @@ menuBtn.addEventListener("click", () => setSidebarOpen(!sidebar.classList.contai
 overlay.addEventListener("click", () => setSidebarOpen(false));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") setSidebarOpen(false); });
 
-// Login screen
 document.getElementById("auth-switch-btn").addEventListener("click", () => {
     setAuthMode(authMode === "login" ? "register" : "login");
 });
@@ -568,7 +507,6 @@ document.getElementById("auth-form").addEventListener("submit", async (e) => {
     }
 });
 
-// Logout (on the profile page)
 document.getElementById("profile-logout").addEventListener("click", () => {
     session.clear();
     updateAuthUI();

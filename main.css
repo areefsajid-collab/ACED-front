@@ -731,3 +731,11 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     .done-btn, .download-btn { min-height: 48px; font-size: 16px; }
     .progress-heading { font-size: 30px; }
 }
+
+.sheet-body p { margin: 0 0 10px; font-size: 18px; }
+.sheet-body h1, .sheet-body h2, .sheet-body h3 {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    margin: 28px 0 10px;
+}
+.sheet-body ul, .sheet-body ol { margin: 0 0 10px; padding-left: 24px; }
