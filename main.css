@@ -57,26 +57,49 @@ a { color: inherit; }
 .brand {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
     justify-self: center;
     min-width: 0;
 }
-.brand-star { flex: 0 0 auto; }
 .brand-text { display: flex; flex-direction: column; line-height: 1; }
 .brand-name {
     font-family: 'Baloo 2', system-ui, sans-serif;
     font-weight: 800;
-    font-size: 34px;
+    font-size: 40px;
     color: var(--ink);
     letter-spacing: 0.5px;
 }
 .brand-sub {
     font-family: 'Baloo 2', system-ui, sans-serif;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 17px;
     color: var(--tomato);
     margin-top: 2px;
+}
+
+/* Logo badge: a circle with the same border as the social buttons */
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: var(--line) solid var(--ink);
+    border-radius: 50%;
+    background: var(--white);
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+.brand-badge img {
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+}
+.brand-badge-sm {
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
 }
 
 .menu-btn,
@@ -229,18 +252,22 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     max-width: 36ch;
 }
 
-/* Reserved illustration slot: keeps its size even before the art is in */
+/* Mascot picture in the hero */
 .hero-art {
     width: 100%;
     max-width: 340px;
-    min-height: 240px;
     justify-self: end;
-    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.hero-art svg { width: 100%; height: 100%; }
+.hero-art img.mascot {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 
 .section-title {
     font-weight: 800;
@@ -452,147 +479,6 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
 .profile-head .view-copy { font-size: 17px; }
 .profile-logout { margin-top: 12px; }
 
-/* ---------- Printable worksheet ---------- */
-.sheet {
-    max-width: 210mm;
-    min-height: 297mm;
-    margin: 0 auto;
-    padding: 18mm 16mm;
-    background: var(--white);
-    border: 3px solid var(--ink);
-    border-radius: 6px;
-}
-.sheet-head { border-bottom: 3px solid var(--ink); padding-bottom: 12px; margin-bottom: 24px; }
-.sheet-brand { font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 20px; }
-.sheet-brand span { font-weight: 700; color: var(--tomato); font-size: 15px; }
-.sheet-title { font-weight: 800; font-size: 30px; margin: 8px 0 14px; }
-.sheet-fields { display: flex; gap: 28px; font-weight: 700; }
-.sheet-fields label { display: flex; align-items: flex-end; gap: 10px; flex: 1; }
-.field-line { flex: 1; border-bottom: 2px solid var(--ink); height: 22px; }
-.field-line.short { flex: 0 0 120px; }
-.sheet-empty { color: var(--ink-soft); text-align: center; padding: 60px 0; }
-
-.question { break-inside: avoid; margin-bottom: 28px; }
-.question-text { font-weight: 700; margin: 0 0 10px; font-size: 19px; }
-.answer-box { border: 2px solid var(--ink); border-radius: 6px; height: 64px; }
-
-/* ---------- Footer ---------- */
-.site-footer {
-    border-top: var(--line) solid var(--ink);
-    background: var(--white);
-    padding: 28px 0;
-    margin-top: 48px;
-}
-.footer-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-.brand-footer { justify-self: start; }
-.footer-note { margin: 0; font-size: 15px; color: var(--ink-soft); }
-
-/* ---------- Tablet and below ---------- */
-@media (max-width: 720px) {
-    .topbar-inner { height: 72px; }
-    .brand-name { font-size: 28px; }
-    .hero { grid-template-columns: 1fr; text-align: center; }
-    .hero-copy { margin-left: auto; margin-right: auto; }
-    .kicker { margin-left: auto; margin-right: auto; }
-    .hero-art { order: -1; justify-self: center; max-width: 200px; min-height: 180px; }
-    .subject-grid { grid-template-columns: 1fr 1fr; }
-    .grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .view-title { font-size: 34px; }
-    .sheet { padding: 12mm 10mm; }
-}
-
-/* ---------- Phones ---------- */
-@media (max-width: 600px) {
-    .wrap {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .topbar-inner {
-        height: 72px;
-        gap: 8px;
-    }
-    .brand-name { font-size: 24px; }
-    .brand-sub { font-size: 13px; }
-    .brand-star { width: 26px; height: 26px; }
-    .menu-btn, .social-btn {
-        width: 48px;
-        height: 48px;
-        border-width: 3px;
-    }
-    .socials { gap: 6px; }
-
-    /* On phones the chip shows only the avatar, or the text "Log in" in a smaller size */
-    .auth-chip {
-        min-height: 48px;
-        padding: 0 10px;
-        font-size: 15px;
-        border-width: 3px;
-    }
-    .auth-chip.is-user .auth-name { display: none; }
-    .auth-chip.is-user { padding: 4px; }
-    .avatar { width: 36px; height: 36px; font-size: 18px; border-width: 3px; }
-
-    .hero {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        text-align: left;
-    }
-    .hero-art {
-        order: -1;
-        justify-self: center;
-        max-width: 170px;
-        min-height: 170px;
-    }
-    .hero-title { font-size: 38px; }
-    .hero-copy { font-size: 17px; max-width: none; }
-
-    .section-title { font-size: 26px; margin: 30px 0 14px; }
-
-    .subject-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-    .subject-card {
-        min-height: 132px;
-        padding: 14px;
-        border-width: 3px;
-    }
-    .subject-mark { font-size: 36px; }
-    .subject-name { font-size: 20px; white-space: nowrap; }
-
-    .view-title { font-size: 30px; }
-    .view-head { margin-bottom: 20px; }
-    .back-btn, .print-btn { min-height: 48px; font-size: 16px; padding: 0 16px; }
-
-    .grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .grade-btn { min-height: 104px; font-size: 40px; }
-
-    .panel { padding: 22px; }
-    .panel-title { font-size: 28px; }
-    .panel p { font-size: 17px; }
-
-    .footer-inner { justify-content: center; text-align: center; }
-    .brand-footer { justify-self: center; }
-}
-
-/* ---------- Print: only the worksheet ---------- */
-@media print {
-    @page { size: A4; margin: 0; }
-    body { background: var(--white); }
-    .topbar, .sidebar, .overlay, .no-print, .site-footer,
-    .view:not([data-view="worksheet"]) { display: none !important; }
-    .stage { padding: 0; }
-    .view[data-view="worksheet"] { display: block !important; }
-    .sheet { border: 0; border-radius: 0; margin: 0; max-width: none; min-height: auto; }
-}
-
 /* ---------- Worksheet list (grade page) ---------- */
 .topic-btn {
     display: flex;
@@ -658,8 +544,35 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
 .download-btn { background: var(--white); color: var(--ink); }
 .done-btn:active, .download-btn:active { transform: scale(0.96); }
 
-/* ---------- Worksheet content (matches the printed sheet) ---------- */
+/* ---------- Printable worksheet ---------- */
+.sheet {
+    max-width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 18mm 16mm;
+    background: var(--white);
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+}
+.sheet-head { border-bottom: 3px solid var(--ink); padding-bottom: 12px; margin-bottom: 24px; }
+.sheet-brand { font-family: 'Baloo 2', system-ui, sans-serif; font-weight: 800; font-size: 20px; }
+.sheet-brand span { font-weight: 700; color: var(--tomato); font-size: 15px; }
+.sheet-title { font-weight: 800; font-size: 30px; margin: 8px 0 14px; }
 .sheet-meta { margin: 0 0 4px; font-weight: 700; color: var(--ink-soft); }
+.sheet-fields { display: flex; gap: 28px; font-weight: 700; }
+.sheet-fields label { display: flex; align-items: flex-end; gap: 10px; flex: 1; }
+.field-line { flex: 1; border-bottom: 2px solid var(--ink); height: 22px; }
+.field-line.short { flex: 0 0 120px; }
+.sheet-empty { color: var(--ink-soft); text-align: center; padding: 60px 0; }
+
+.sheet-body p { margin: 0 0 10px; font-size: 18px; }
+.sheet-body h1, .sheet-body h2, .sheet-body h3 {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    font-weight: 800;
+    margin: 28px 0 10px;
+}
+.sheet-body ul, .sheet-body ol { margin: 0 0 10px; padding-left: 24px; }
+
 .sheet-section {
     font-family: 'Baloo 2', system-ui, sans-serif;
     font-size: 26px;
@@ -668,12 +581,11 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     padding-bottom: 6px;
     border-bottom: 3px solid var(--ink);
 }
+.question { break-inside: avoid; margin-bottom: 28px; }
+.question-text { font-weight: 700; margin: 0 0 10px; font-size: 19px; }
 .picture-note { margin: 0 0 8px; font-style: italic; color: var(--ink-soft); }
 .answer-lines { margin-top: 10px; }
-.answer-line {
-    height: 34px;
-    border-bottom: 2px solid var(--ink-soft);
-}
+.answer-line { height: 34px; border-bottom: 2px solid var(--ink-soft); }
 .matching { margin-top: 8px; }
 .matching-note { font-style: italic; color: var(--ink-soft); margin: 0 0 10px; }
 .match-row { display: flex; gap: 10px; margin: 0 0 10px; }
@@ -726,16 +638,109 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
 .progress-fill { height: 100%; background: var(--leaf); }
 .progress-count { margin: 8px 0 0; font-weight: 700; }
 
+/* ---------- Footer ---------- */
+.site-footer {
+    border-top: var(--line) solid var(--ink);
+    background: var(--white);
+    padding: 28px 0;
+    margin-top: 48px;
+}
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.brand-footer { justify-self: start; }
+.brand-footer .brand-name { font-size: 26px; }
+.brand-footer .brand-sub { font-size: 14px; }
+.footer-note { margin: 0; font-size: 15px; color: var(--ink-soft); }
+
+/* ---------- Tablet and below ---------- */
+@media (max-width: 720px) {
+    .topbar-inner { height: 72px; }
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-copy { margin-left: auto; margin-right: auto; }
+    .kicker { margin-left: auto; margin-right: auto; }
+    .hero-art { order: -1; justify-self: center; max-width: 200px; }
+    .hero-art img.mascot { max-width: 200px; }
+    .subject-grid { grid-template-columns: 1fr 1fr; }
+    .grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .view-title { font-size: 34px; }
+    .sheet { padding: 12mm 10mm; }
+    .footer-inner { justify-content: center; text-align: center; }
+    .brand-footer { justify-self: center; }
+}
+
+/* ---------- Phones ---------- */
 @media (max-width: 600px) {
+    .wrap {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .topbar-inner { height: 72px; gap: 8px; }
+    .brand { gap: 8px; }
+    .brand-name { font-size: 30px; }
+    .brand-sub { font-size: 14px; }
+    .brand-badge { width: 52px; height: 52px; border-width: 3px; }
+    .brand-badge-sm { width: 40px; height: 40px; }
+
+    .menu-btn, .social-btn {
+        width: 48px;
+        height: 48px;
+        border-width: 3px;
+    }
+    .socials { gap: 6px; }
+
+    .auth-chip {
+        min-height: 48px;
+        padding: 0 10px;
+        font-size: 15px;
+        border-width: 3px;
+    }
+    .auth-chip.is-user .auth-name { display: none; }
+    .auth-chip.is-user { padding: 4px; }
+    .avatar { width: 36px; height: 36px; font-size: 18px; border-width: 3px; }
+
+    .hero { gap: 18px; text-align: left; }
+    .hero-art { order: -1; justify-self: center; max-width: 170px; }
+    .hero-art img.mascot { max-width: 170px; }
+    .hero-title { font-size: 38px; }
+    .hero-copy { font-size: 17px; max-width: none; }
+
+    .section-title { font-size: 26px; margin: 30px 0 14px; }
+
+    .subject-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .subject-card { min-height: 132px; padding: 14px; border-width: 3px; }
+    .subject-mark { font-size: 36px; }
+    .subject-name { font-size: 20px; white-space: nowrap; }
+
+    .view-title { font-size: 30px; }
+    .view-head { margin-bottom: 20px; }
+    .back-btn, .print-btn { min-height: 48px; font-size: 16px; padding: 0 16px; }
+
+    .grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .grade-btn { min-height: 104px; font-size: 40px; }
+
     .topic-btn { min-height: 64px; font-size: 18px; padding: 0 16px; }
     .done-btn, .download-btn { min-height: 48px; font-size: 16px; }
+
+    .panel { padding: 22px; }
+    .panel-title { font-size: 28px; }
+    .panel p { font-size: 17px; }
+
     .progress-heading { font-size: 30px; }
 }
 
-.sheet-body p { margin: 0 0 10px; font-size: 18px; }
-.sheet-body h1, .sheet-body h2, .sheet-body h3 {
-    font-family: 'Baloo 2', system-ui, sans-serif;
-    font-weight: 800;
-    margin: 28px 0 10px;
+/* ---------- Print: only the worksheet ---------- */
+@media print {
+    @page { size: A4; margin: 0; }
+    body { background: var(--white); }
+    .topbar, .sidebar, .overlay, .no-print, .site-footer,
+    .view:not([data-view="worksheet"]) { display: none !important; }
+    .stage { padding: 0; }
+    .view[data-view="worksheet"] { display: block !important; }
+    .sheet { border: 0; border-radius: 0; margin: 0; max-width: none; min-height: auto; }
 }
-.sheet-body ul, .sheet-body ol { margin: 0 0 10px; padding-left: 24px; }
