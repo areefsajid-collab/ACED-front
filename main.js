@@ -1,7 +1,6 @@
-const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    ? "http://localhost:5000/api"
-    : "https://aced-backend.onrender.com/api";
-
+   const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
+       ? "http://localhost:5000/api"
+       : "https://nwvlgy3m4q02-production-v9cdeall.us-central1.suga.run/api";
 const views = document.querySelectorAll(".view");
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
