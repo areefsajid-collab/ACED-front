@@ -1,3 +1,6 @@
+TEAM ACED*
+Team members(solo project):
+Mohammad Areef, erp = 35605
 the backend repo = https://github.com/areefsajid-collab/ACED-back/tree/master
 pls look at the master branches for both repos..
 Access the working website, fully deployed here = https://aced-kids.vercel.app
