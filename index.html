@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- SEO Meta Tags -->
+    <meta name="description" content="Free, printable worksheets for Grades 1 to 8. Maths, English, Science, and Urdu, built from national, Oxford, and Cambridge syllabuses.">
+    <meta name="keywords" content="worksheets, grade 1, grade 2, grade 3, maths worksheets, english worksheets, free printable worksheets, pakistan">
+
+    <!-- Open Graph (For WhatsApp, Twitter, Facebook links) -->
+    <meta property="og:title" content="ACED* by Areef: Free Worksheets for Kids">
+    <meta property="og:description" content="Worksheets for Grades 1 to 8. Print them, do them on paper, tick them off.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aced-kids.vercel.app/">
+    <meta property="og:image" content="https://aced-kids.vercel.app/fox.png">
+
+    <!-- Canonical URL (tells Google this is the main URL) -->
+    <link rel="canonical" href="https://aced-kids.vercel.app/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACED* by Areef: Worksheets for Kids</title>
@@ -34,7 +47,7 @@
                 <a class="auth-chip" id="header-auth" href="#login">Log in</a>
                 <a class="social-btn" href="https://github.com/areefsajid-collab" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-                        <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                        <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.760 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
                     </svg>
                 </a>
                 <a class="social-btn" href="https://www.linkedin.com/in/areef-sajid-732640329/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -60,7 +73,6 @@
 
     <main class="wrap stage">
 
-        <!-- HOME -->
         <section class="view" data-view="home">
             <div class="hero">
                 <div class="hero-text">
@@ -94,7 +106,6 @@
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section class="view" data-view="about" hidden>
             <div class="panel">
                 <h2 class="panel-title">About ACED*</h2>
@@ -103,7 +114,6 @@
             </div>
         </section>
 
-        <!-- CONTACTS -->
         <section class="view" data-view="contacts" hidden>
             <div class="panel">
                 <h2 class="panel-title">Get in touch</h2>
@@ -112,12 +122,12 @@
             </div>
         </section>
 
-        <!-- LOGIN / REGISTER -->
         <section class="view" data-view="login" hidden>
-            <div class="panel auth-panel">
-                <h2 class="panel-title" id="auth-title">Log in</h2>
+            <div class="panel auth-panel" style="text-align: center;">
+                <h2 class="panel-title" style="margin-bottom: 20px;">Welcome</h2>
+                <p class="view-copy" style="margin-bottom: 30px;">Log in to track your progress across devices.</p>
 
-                <button class="google-btn" type="button" id="google-btn">
+                <button class="google-btn" type="button" id="google-btn" style="justify-content: center;">
                     <svg class="google-logo" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -126,34 +136,9 @@
                     </svg>
                     <span>Continue with Google</span>
                 </button>
-
-                <p class="auth-or"><span>or use email</span></p>
-
-                <form class="auth-form" id="auth-form" novalidate>
-                    <label id="auth-name-field" hidden>
-                        Name
-                        <input type="text" id="auth-name" autocomplete="name">
-                    </label>
-                    <label>
-                        Email
-                        <input type="email" id="auth-email" autocomplete="email" required>
-                    </label>
-                    <label>
-                        Password
-                        <input type="password" id="auth-password" autocomplete="current-password" required>
-                    </label>
-                    <button class="auth-submit" type="submit" id="auth-submit">Log in</button>
-                    <p class="auth-msg" id="auth-msg" role="status"></p>
-                </form>
-
-                <p class="auth-switch">
-                    <span id="auth-switch-text">New here?</span>
-                    <button class="text-btn" type="button" id="auth-switch-btn">Create an account</button>
-                </p>
             </div>
         </section>
 
-        <!-- PROFILE -->
         <section class="view" data-view="profile" hidden>
             <div class="panel profile-panel">
                 <div class="profile-head">
@@ -167,7 +152,6 @@
             </div>
         </section>
 
-        <!-- MY PROGRESS -->
         <section class="view" data-view="progress" hidden>
             <div class="view-head">
                 <h2 class="view-title">My progress</h2>
@@ -177,7 +161,6 @@
             <div id="progress-body"></div>
         </section>
 
-        <!-- SUBJECT: grade picker -->
         <section class="view" data-view="subject" hidden>
             <div class="view-head">
                 <button class="back-btn" type="button" data-link="home">← Subjects</button>
@@ -187,7 +170,6 @@
             <div class="grade-grid" id="grade-grid"></div>
         </section>
 
-        <!-- GRADE: worksheet list -->
         <section class="view" data-view="grade" hidden>
             <div class="view-head">
                 <button class="back-btn" type="button" id="grade-back">← Grades</button>
@@ -197,13 +179,12 @@
             <div class="topic-list" id="topic-list"></div>
         </section>
 
-        <!-- WORKSHEET -->
         <section class="view" data-view="worksheet" hidden>
             <div class="view-head no-print">
                 <button class="back-btn" type="button" id="worksheet-back">← Worksheets</button>
                 <div class="action-row">
                     <button class="done-btn" type="button" id="done-btn" hidden></button>
-                    <a class="download-btn" id="download-btn" href="#" hidden>Download Word File</a>
+                    <a class="download-btn" id="download-btn" href="#" hidden>Download Word</a>
                     <button class="print-btn" type="button" id="print-btn">Print</button>
                 </div>
                 <p class="view-copy" id="done-msg" role="status"></p>

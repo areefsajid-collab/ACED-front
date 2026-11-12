@@ -673,37 +673,55 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     .brand-footer { justify-self: center; }
 }
 
-/* ---------- Phones ---------- */
+/* ---------- Phones & Mobile Fixes ---------- */
 @media (max-width: 600px) {
     .wrap {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
-    .topbar-inner { height: 72px; gap: 8px; }
-    .brand { gap: 8px; }
-    .brand-name { font-size: 30px; }
-    .brand-sub { font-size: 14px; }
-    .brand-badge { width: 52px; height: 52px; border-width: 3px; }
-    .brand-badge-sm { width: 40px; height: 40px; }
-
-    .menu-btn, .social-btn {
-        width: 48px;
-        height: 48px;
-        border-width: 3px;
+    /* 1. Header Fix: Keep everything, just make it smaller */
+    .topbar-inner {
+        height: auto;
+        min-height: 72px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        gap: 6px;
     }
-    .socials { gap: 6px; }
 
+    /* Shrink the brand elements */
+    .brand { gap: 6px; justify-self: start; }
+    .brand-badge { width: 36px; height: 36px; border-width: 2px; }
+    .brand-name { font-size: 20px; }
+    .brand-sub { font-size: 10px; }
+
+    /* Shrink the social buttons */
+    .social-btn {
+        width: 38px;
+        height: 38px;
+        border-width: 2px;
+    }
+    .social-btn svg { width: 18px; height: 18px; }
+    .socials { gap: 4px; }
+
+    /* Shrink the login chip */
     .auth-chip {
-        min-height: 48px;
-        padding: 0 10px;
-        font-size: 15px;
-        border-width: 3px;
+        min-height: 38px;
+        padding: 0 8px;
+        font-size: 13px;
+        border-width: 2px;
     }
     .auth-chip.is-user .auth-name { display: none; }
-    .auth-chip.is-user { padding: 4px; }
-    .avatar { width: 36px; height: 36px; font-size: 18px; border-width: 3px; }
+    .auth-chip.is-user { padding: 2px; }
 
+    /* Shrink the menu button */
+    .menu-btn {
+        width: 38px;
+        height: 38px;
+        border-width: 2px;
+    }
+
+    /* 2. Home View */
     .hero { gap: 18px; text-align: left; }
     .hero-art { order: -1; justify-self: center; max-width: 170px; }
     .hero-art img.mascot { max-width: 170px; }
@@ -717,24 +735,65 @@ h1, h2, .subject-name, .grade-btn, .topic-btn, .sidebar-link, .back-btn, .print-
     .subject-mark { font-size: 36px; }
     .subject-name { font-size: 20px; white-space: nowrap; }
 
-    .view-title { font-size: 30px; }
-    .view-head { margin-bottom: 20px; }
-    .back-btn, .print-btn { min-height: 48px; font-size: 16px; padding: 0 16px; }
+    /* 3. Worksheet Buttons */
+    .view-head { margin-bottom: 16px; }
+    .view-head .action-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .view-head .action-row > * {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    .view-head .back-btn { width: 100%; justify-content: center; }
+    .done-btn, .download-btn, .print-btn { min-height: 48px; font-size: 16px; }
 
+    .view-title { font-size: 30px; }
     .grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .grade-btn { min-height: 104px; font-size: 40px; }
-
     .topic-btn { min-height: 64px; font-size: 18px; padding: 0 16px; }
-    .done-btn, .download-btn { min-height: 48px; font-size: 16px; }
 
     .panel { padding: 22px; }
     .panel-title { font-size: 28px; }
     .panel p { font-size: 17px; }
-
     .progress-heading { font-size: 30px; }
+
+    /* 4. Worksheet Preview Fixes (Stops the overflow) */
+    .sheet {
+        max-width: 100%;
+        min-height: auto;
+        width: 100%;
+        padding: 16px 12px;
+        border-width: 2px;
+    }
+    .sheet-head { margin-bottom: 16px; }
+    .sheet-title { font-size: 24px; }
+    .sheet-fields { flex-wrap: wrap; gap: 12px; }
+    .sheet-fields label { flex: 1 1 100%; }
+
+    /* Force database lines to stay on screen */
+    .answer-line { width: 100% !important; }
+    .sheet-body { overflow-x: hidden; }
+    .sheet-body p { font-size: 17px; }
+    .sheet-body table { width: 100%; display: block; overflow-x: auto; }
 }
 
-/* ---------- Print: only the worksheet ---------- */
+/* ---------- Global Overrides for Worksheet Content ---------- */
+/* This guarantees that no matter what HTML the database sends, it won't overflow the screen */
+.sheet * {
+    max-width: 100%;
+}
+.sheet-body,
+.sheet-body p,
+.sheet-body div {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* ---------- Print ---------- */
 @media print {
     @page { size: A4; margin: 0; }
     body { background: var(--white); }

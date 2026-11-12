@@ -1,52 +1,31 @@
-   const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-       ? "http://localhost:5000/api"
-       : "https://nwvlgy3m4q02-production-v9cdeall.us-central1.suga.run/api";
+const API = location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "http://localhost:5000/api"
+    : "https://nwvlgy3m4q02-production-v9cdeall.us-central1.suga.run/api";
+
 const views = document.querySelectorAll(".view");
 const sidebar = document.querySelector(".sidebar");
 const overlay = document.querySelector(".overlay");
 const menuBtn = document.querySelector(".menu-btn");
 const headerAuth = document.getElementById("header-auth");
 
-const subjects = {
-    maths: "Maths",
-    english: "English",
-    science: "Science",
-    urdu: "Urdu"
-};
-
+const subjects = { maths: "Maths", english: "English", science: "Science", urdu: "Urdu" };
 const GRADES = [1, 2, 3, 4, 5, 6, 7, 8];
 
-// Hash routes:
-// #home, #about, #contacts, #login, #profile, #progress
-// #subject/maths, #grade/maths/4, #worksheet/12
-const state = {
-    subject: null,
-    grade: null,
-    worksheetId: null,
-    doneIds: new Set(),
-    progressGrade: 1
-};
-let authMode = "login";
+const state = { subject: null, grade: null, worksheetId: null, doneIds: new Set(), progressGrade: 1 };
 
-// ---------- Session (stored in the browser) ----------
 const session = {
     get token() { return localStorage.getItem("aced_token"); },
     get refresh() { return localStorage.getItem("aced_refresh"); },
-    get user() {
-        try { return JSON.parse(localStorage.getItem("aced_user")); } catch { return null; }
-    },
+    get user() { try { return JSON.parse(localStorage.getItem("aced_user")); } catch { return null; } },
     save(token, refresh, user) {
         localStorage.setItem("aced_token", token);
         localStorage.setItem("aced_refresh", refresh);
         if (user) localStorage.setItem("aced_user", JSON.stringify(user));
     },
     saveUser(user) { localStorage.setItem("aced_user", JSON.stringify(user)); },
-    clear() {
-        ["aced_token", "aced_refresh", "aced_user"].forEach((k) => localStorage.removeItem(k));
-    }
+    clear() { ["aced_token", "aced_refresh", "aced_user"].forEach((k) => localStorage.removeItem(k)); }
 };
 
-// Picks up tokens after Google sign-in, then cleans the URL
 function captureGoogleTokens() {
     if (!location.hash.includes("token=")) return;
     const params = new URLSearchParams(location.hash.slice(1));
@@ -59,9 +38,7 @@ async function loadProfile() {
         const data = await apiFetch("/auth/profile");
         session.saveUser(data.user);
         updateAuthUI();
-    } catch {
-        // The next protected request will log the user out if the session is dead
-    }
+    } catch {}
 }
 
 async function refreshAccessToken() {
@@ -76,16 +53,12 @@ async function refreshAccessToken() {
         const data = await res.json();
         localStorage.setItem("aced_token", data.token);
         return true;
-    } catch {
-        return false;
-    }
+    } catch { return false; }
 }
 
-// Calls the backend with the token, refreshing it once if it has expired
 async function apiFetch(path, options = {}, retry = true) {
     const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
     if (session.token) headers.Authorization = `Bearer ${session.token}`;
-
     const res = await fetch(`${API}${path}`, { ...options, headers });
 
     if (res.status === 401 && retry) {
@@ -94,24 +67,11 @@ async function apiFetch(path, options = {}, retry = true) {
         updateAuthUI();
         throw new Error("Your session has ended. Please log in again.");
     }
-
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
     return data;
 }
 
-async function postJson(path, body) {
-    const res = await fetch(`${API}${path}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || "Something went wrong. Please try again.");
-    return data;
-}
-
-// Creates an element with safe text (never inserts raw HTML from the server)
 function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -125,12 +85,9 @@ async function loadDoneIds() {
     try {
         const data = await apiFetch("/users/progress");
         data.progress.forEach((p) => state.doneIds.add(p.worksheetId));
-    } catch {
-        // Not critical: the list simply won't show done ticks
-    }
+    } catch {}
 }
 
-// ---------- Header login / profile ----------
 function initialOf(user) {
     const source = (user && (user.name || user.email)) || "?";
     return source.trim().charAt(0).toUpperCase();
@@ -163,11 +120,8 @@ function renderProfile() {
     document.getElementById("profile-avatar").textContent = initialOf(user);
 }
 
-// ---------- Navigation ----------
 function showView(name) {
-    views.forEach((view) => {
-        view.hidden = view.dataset.view !== name;
-    });
+    views.forEach((view) => { view.hidden = view.dataset.view !== name; });
     window.scrollTo({ top: 0, behavior: "instant" });
 }
 
@@ -185,18 +139,6 @@ function setActiveSidebar(name) {
     });
 }
 
-function setAuthMode(mode) {
-    authMode = mode;
-    const registering = mode === "register";
-    document.getElementById("auth-title").textContent = registering ? "Create your account" : "Log in";
-    document.getElementById("auth-name-field").hidden = !registering;
-    document.getElementById("auth-submit").textContent = registering ? "Create account" : "Log in";
-    document.getElementById("auth-switch-text").textContent = registering ? "Already have an account?" : "New here?";
-    document.getElementById("auth-switch-btn").textContent = registering ? "Log in" : "Create an account";
-    document.getElementById("auth-msg").textContent = "";
-}
-
-// ---------- Subject and grade pages ----------
 function renderSubject(subject) {
     document.getElementById("subject-title").textContent = subjects[subject];
     const grid = document.getElementById("grade-grid");
@@ -205,9 +147,7 @@ function renderSubject(subject) {
         const btn = el("button", "grade-btn");
         btn.type = "button";
         btn.innerHTML = `${grade}<span>Grade</span>`;
-        btn.addEventListener("click", () => {
-            location.hash = `grade/${subject}/${grade}`;
-        });
+        btn.addEventListener("click", () => { location.hash = `grade/${subject}/${grade}`; });
         grid.appendChild(btn);
     });
 }
@@ -224,7 +164,7 @@ async function renderGrade(subject, grade) {
         list.innerHTML = "";
 
         if (!data.worksheets.length) {
-            list.appendChild(el("div", "topic-empty", "No worksheets are ready for this grade yet. Check back soon."));
+            list.appendChild(el("div", "topic-empty", "No worksheets are ready for this grade yet."));
             return;
         }
 
@@ -235,9 +175,7 @@ async function renderGrade(subject, grade) {
             meta.appendChild(el("span", "badge", ws.difficulty));
             if (state.doneIds.has(ws.id)) meta.appendChild(el("span", "done-tag", "Done"));
             card.append(el("span", "topic-text", ws.title), meta);
-            card.addEventListener("click", () => {
-                location.hash = `worksheet/${ws.id}`;
-            });
+            card.addEventListener("click", () => { location.hash = `worksheet/${ws.id}`; });
             list.appendChild(card);
         });
     } catch (err) {
@@ -246,23 +184,16 @@ async function renderGrade(subject, grade) {
     }
 }
 
-// ---------- Worksheet page ----------
 function updateDoneButton() {
     const btn = document.getElementById("done-btn");
     btn.hidden = false;
-    if (!session.token) {
-        btn.textContent = "Log in to track progress";
-        return;
-    }
+    if (!session.token) { btn.textContent = "Log in to track progress"; return; }
     btn.textContent = state.doneIds.has(state.worksheetId) ? "Marked as done (undo)" : "Mark as done";
 }
 
 async function toggleDone() {
     const msg = document.getElementById("done-msg");
-    if (!session.token) {
-        location.hash = "login";
-        return;
-    }
+    if (!session.token) { location.hash = "login"; return; }
 
     const id = state.worksheetId;
     const wasDone = state.doneIds.has(id);
@@ -274,9 +205,7 @@ async function toggleDone() {
         else state.doneIds.add(id);
         updateDoneButton();
         msg.textContent = wasDone ? "Removed from your progress." : "Saved to your progress.";
-    } catch (err) {
-        msg.textContent = err.message;
-    }
+    } catch (err) { msg.textContent = err.message; }
 }
 
 async function renderWorksheet(id) {
@@ -311,26 +240,19 @@ async function renderWorksheet(id) {
     }
 }
 
-// ---------- My progress ----------
 function renderProgressTabs() {
     const tabs = document.getElementById("progress-tabs");
     tabs.innerHTML = "";
     GRADES.forEach((g) => {
         const tab = el("button", g === state.progressGrade ? "grade-tab is-active" : "grade-tab", `Grade ${g}`);
         tab.type = "button";
-        tab.addEventListener("click", () => {
-            state.progressGrade = g;
-            renderProgress();
-        });
+        tab.addEventListener("click", () => { state.progressGrade = g; renderProgress(); });
         tabs.appendChild(tab);
     });
 }
 
 async function renderProgress() {
-    if (!session.token) {
-        location.hash = "login";
-        return;
-    }
+    if (!session.token) { location.hash = "login"; return; }
 
     renderProgressTabs();
     const body = document.getElementById("progress-body");
@@ -340,7 +262,6 @@ async function renderProgress() {
     try {
         const data = await apiFetch("/users/progress/summary");
         const grade = state.progressGrade;
-
         const rows = Object.keys(subjects).map((key) => {
             const found = data.summary.find((r) => r.subject === key && r.grade === grade);
             return { key, total: found ? found.total : 0, done: found ? found.done : 0 };
@@ -350,9 +271,7 @@ async function renderProgress() {
 
         body.innerHTML = "";
         body.appendChild(el("h2", "progress-heading", `Grade ${grade}`));
-        body.appendChild(el("p", "view-copy", total
-            ? `${done} of ${total} worksheets done`
-            : "No worksheets are ready for this grade yet."));
+        body.appendChild(el("p", "view-copy", total ? `${done} of ${total} worksheets done` : "No worksheets are ready for this grade yet."));
 
         rows.forEach((r) => {
             const card = el("div", "progress-card");
@@ -377,7 +296,6 @@ async function renderProgress() {
     }
 }
 
-// ---------- Router ----------
 function route() {
     const parts = location.hash.replace("#", "").split("/").filter(Boolean);
     const [name, a, b] = parts;
@@ -385,30 +303,19 @@ function route() {
     setSidebarOpen(false);
 
     if (name === "login") {
-        if (session.token) {
-            location.hash = "profile";
-            return;
-        }
+        if (session.token) { location.hash = "profile"; return; }
         setActiveSidebar("login");
-        setAuthMode(authMode);
         return showView("login");
     }
 
     if (name === "profile") {
-        if (!session.token) {
-            location.hash = "login";
-            return;
-        }
+        if (!session.token) { location.hash = "login"; return; }
         setActiveSidebar(null);
         renderProfile();
         return showView("profile");
     }
 
-    if (name === "progress") {
-        setActiveSidebar("progress");
-        showView("progress");
-        return renderProgress();
-    }
+    if (name === "progress") { setActiveSidebar("progress"); showView("progress"); return renderProgress(); }
 
     if (name === "subject" && subjects[a]) {
         state.subject = a;
@@ -431,27 +338,18 @@ function route() {
         return renderWorksheet(Number(a));
     }
 
-    if (name === "about" || name === "contacts") {
-        setActiveSidebar(name);
-        return showView(name);
-    }
+    if (name === "about" || name === "contacts") { setActiveSidebar(name); return showView(name); }
 
     setActiveSidebar("home");
     showView("home");
 }
 
-// ---------- Event listeners ----------
 document.querySelectorAll(".subject-card").forEach((card) => {
-    card.addEventListener("click", () => {
-        location.hash = `subject/${card.dataset.subject}`;
-    });
+    card.addEventListener("click", () => { location.hash = `subject/${card.dataset.subject}`; });
 });
 
 document.querySelectorAll("[data-link='home']").forEach((link) => {
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-        location.hash = "home";
-    });
+    link.addEventListener("click", (e) => { e.preventDefault(); location.hash = "home"; });
 });
 
 document.querySelector("[data-view='subject'] [data-link='home']")?.addEventListener("click", (e) => {
@@ -475,35 +373,9 @@ menuBtn.addEventListener("click", () => setSidebarOpen(!sidebar.classList.contai
 overlay.addEventListener("click", () => setSidebarOpen(false));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") setSidebarOpen(false); });
 
-document.getElementById("auth-switch-btn").addEventListener("click", () => {
-    setAuthMode(authMode === "login" ? "register" : "login");
-});
-
+// GOOGLE LOGIN ONLY
 document.getElementById("google-btn").addEventListener("click", () => {
     window.location.href = `${API}/auth/google`;
-});
-
-document.getElementById("auth-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const msg = document.getElementById("auth-msg");
-    const email = document.getElementById("auth-email").value.trim();
-    const password = document.getElementById("auth-password").value;
-    const name = document.getElementById("auth-name").value.trim();
-
-    msg.textContent = "Please wait...";
-    try {
-        const data = authMode === "register"
-            ? await postJson("/auth/register", { email, password, name })
-            : await postJson("/auth/login", { email, password });
-
-        session.save(data.token, data.refreshToken, data.user);
-        e.target.reset();
-        updateAuthUI();
-        msg.textContent = "";
-        location.hash = "profile";
-    } catch (err) {
-        msg.textContent = err.message;
-    }
 });
 
 document.getElementById("profile-logout").addEventListener("click", () => {
@@ -515,7 +387,6 @@ document.getElementById("profile-logout").addEventListener("click", () => {
 
 window.addEventListener("hashchange", route);
 
-// ---------- Start ----------
 captureGoogleTokens();
 updateAuthUI();
 if (session.token) loadProfile();
