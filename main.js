@@ -207,33 +207,39 @@ async function toggleDone() {
         msg.textContent = wasDone ? "Removed from your progress." : "Saved to your progress.";
     } catch (err) { msg.textContent = err.message; }
 }
-
 async function renderWorksheet(id) {
     state.worksheetId = id;
     const body = document.getElementById("sheet-body");
-    body.innerHTML = "";
-    body.appendChild(el("p", "sheet-empty", "Loading worksheet..."));
+
+    // Show a quick skeleton loader
+    body.innerHTML = `<p class="sheet-empty">Loading...</p>`;
     document.getElementById("done-btn").hidden = true;
     document.getElementById("download-btn").hidden = true;
     document.getElementById("done-msg").textContent = "";
 
     try {
-        await loadDoneIds();
-        const { worksheet } = await apiFetch(`/worksheets/${id}`);
+        // 1. Fetch the preview FIRST (this is now cached and instant)
         const preview = await apiFetch(`/worksheets/${id}/preview`);
+        body.innerHTML = preview.html;
+
+        // 2. Fetch the metadata in the background
+        const { worksheet } = await apiFetch(`/worksheets/${id}`);
 
         state.subject = worksheet.subject;
         state.grade = worksheet.grade;
 
+        // Update the header text
         document.getElementById("sheet-title").textContent = worksheet.title;
         document.getElementById("sheet-meta").textContent = `${subjects[worksheet.subject]}, Grade ${worksheet.grade}`;
 
+        // Show the buttons
         const download = document.getElementById("download-btn");
         download.href = `${API}/worksheets/${id}/download`;
         download.hidden = false;
 
-        body.innerHTML = preview.html;
+        await loadDoneIds(); // Check if they marked it as done
         updateDoneButton();
+
     } catch (err) {
         body.innerHTML = "";
         body.appendChild(el("p", "sheet-empty", err.message));
